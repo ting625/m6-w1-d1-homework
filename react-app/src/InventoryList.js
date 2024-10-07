@@ -17,8 +17,8 @@ class InventoryList extends Component {
 
         fetch('/api/inventories')
             .then(response => response.json())
-            .then(data => this.setState({ inventories: data, isLoading: false })) 
-            .catch(error => console.error('Error fetching inventory:', error));
+            .then(data => this.setState({ inventories: data, isLoading: false })) ;
+
     }
 
     removeInventory = async (id) => {
@@ -28,11 +28,12 @@ class InventoryList extends Component {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
-        });
+        })
 
         console.log("Remove Done!");
         // Update inventory state minus removed item
-        let updatedInventories = this.state.inventories.filter(i => i._id !== id);
+        let updatedInventories = 
+            [...this.state.inventories].filter(i => i._id !== id);
         this.setState({ inventories: updatedInventories });
     }
 
@@ -51,25 +52,25 @@ class InventoryList extends Component {
                     <td>{inventory.price}</td>
                     <td>{inventory.status}</td>
                     <td>
-                        <ButtonGroup>
-                            <Button
-                                size="sm"
-                                color="primary"
-                                tag={Link} 
-                                to={"/inventories/" + inventory._id}
-                            >
-                                Edit
-                            </Button>
-                            <Button
-                                size="sm"
-                                color="danger"
-                                onClick={() => this.removeInventory(inventory._id)} 
-                            >
-                                Delete
-                            </Button>
-                        </ButtonGroup>
-                    </td>
-                </tr>
+                    <ButtonGroup>
+                        <Button
+                            size="sm"
+                            color="primary"
+                            tag={Link} 
+                            to={"/inventories/" + inventory._id}
+                        >
+                            Edit
+                        </Button>
+                        <Button
+                            size="sm"
+                            color="danger"
+                            onClick={() => this.removeInventory(inventory._id)} 
+                        >
+                            Delete
+                        </Button>
+                    </ButtonGroup>
+                </td>
+            </tr>
             );
         });
 
