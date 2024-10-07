@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './Navbar';
-import { Link } from 'react-router-dom';
+
 
 class InventoryEdit extends Component {
   emptyInventory = {
@@ -19,11 +20,14 @@ class InventoryEdit extends Component {
   }
 
   async componentDidMount() {
-    if (this.props.match.params.id !== 'new') {  // fixed typo 'parms' to 'params'
-      const inventory = await (await fetch(`/api/inventory/${this.props.match.params.id}`)).json();
+    if (this.props.match.params.id !== 'new') {  
+      const inventory 
+        = await (await fetch(`/api/inventory/${this.props.match.params.id}`)).json();
       this.setState({ item: inventory });
     }
   }
+
+  
 
   handleChange = (event) => {
     const target = event.target;
@@ -31,15 +35,15 @@ class InventoryEdit extends Component {
     const name = target.name;
     let item = { ...this.state.item };
     item[name] = value;
-    this.setState({ item });
+    this.setState({item});
   };
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { item } = this.state;
+    const {item} = this.state;
 
     await fetch('/api/inventory', {
-      method: item._id ? 'PUT' : 'POST',
+      method: (item._id) ? 'PUT' : 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
@@ -50,7 +54,7 @@ class InventoryEdit extends Component {
   };
 
   render() {
-    const { item } = this.state;
+    const {item} = this.state;
     const title = (
       <h2 className="mt-3">
         {item._id ? 'Edit Inventory' : 'Add Inventory'}
@@ -69,7 +73,7 @@ class InventoryEdit extends Component {
                 type="text"
                 name="prodname"
                 id="prodname"
-                value={item.prodname || ''}  // fixed typo 'vaule' to 'value'
+                value={item.prodname || ''}  
                 onChange={this.handleChange}
                 autoComplete="prodname"
               />
@@ -80,7 +84,7 @@ class InventoryEdit extends Component {
                 type="text"
                 name="qty"
                 id="qty"
-                value={item.qty || ''}  // fixed typo 'vaule' to 'value'
+                value={item.qty || ''}  
                 onChange={this.handleChange}
                 autoComplete="qty"
               />
@@ -91,7 +95,7 @@ class InventoryEdit extends Component {
                 type="text"
                 name="price"
                 id="price"
-                value={item.price || ''}  // fixed typo 'vaule' to 'value'
+                value={item.price || ''}  
                 onChange={this.handleChange}
                 autoComplete="price"
               />
@@ -102,7 +106,7 @@ class InventoryEdit extends Component {
                 type="text"
                 name="status"
                 id="status"
-                value={item.status || ''}  // fixed typo 'vaule' to 'value'
+                value={item.status || ''}  
                 onChange={this.handleChange}
                 autoComplete="status"
               />

@@ -12,7 +12,7 @@ class App extends Component {
         <Routes>
           <Route path="/" element={<Home />} /> 
           <Route path="/inventories" element={<InventoryList />} /> 
-          <Route path="/inventory/:id" element={<InventoryEdit />} /> 
+          <Route path="/inventories/:id" element={<InventoryEdit />} /> 
         </Routes>
       </Router>
     );
