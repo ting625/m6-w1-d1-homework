@@ -59,7 +59,7 @@ exports.inventories = (req, res) => {
 
 //Delete Inventory Based on ID 
 exports.deleteInventory = (req, res) => {
-    Inventory.findByIdAndRemove(req.params.id).select('-___v-_id')
+    Inventory.findByIdAndDelete(req.params.id).select('-___v-_id')
         .then(inventory => {
             if(!inventory) {
                 res.status(404).json({
